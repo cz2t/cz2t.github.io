@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ctzsb.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​	搭建博客后发现上传的图片都是碎的，网上搜索一堆教程之后发现还是失败，最后找到一篇文章发现问题所在，也就是在存档页和主页不能使用和文章内容中的常规语法来引用图片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决hexo博客无法显示图片的问题">
+<meta property="og:url" content="http://ctzsb.top/2023/01/18/%E8%A7%A3%E5%86%B3hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Ctz">
+<meta property="og:description" content="​	搭建博客后发现上传的图片都是碎的，网上搜索一堆教程之后发现还是失败，最后找到一篇文章发现问题所在，也就是在存档页和主页不能使用和文章内容中的常规语法来引用图片">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202301181605178.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202301181601875.png">
+<meta property="article:published_time" content="2023-01-18T08:15:25.000Z">
+<meta property="article:modified_time" content="2023-01-18T08:17:52.881Z">
+<meta property="article:author" content="SB">
+<meta property="article:tag" content="test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202301181605178.png">
+
+<link rel="canonical" href="http://ctzsb.top/2023/01/18/%E8%A7%A3%E5%86%B3hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>解决hexo博客无法显示图片的问题 | Ctz</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ctz</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://ctzsb.top/2023/01/18/%E8%A7%A3%E5%86%B3hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SB">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ctz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解决hexo博客无法显示图片的问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-18 16:15:25 / Modified: 16:17:52" itemprop="dateCreated datePublished" datetime="2023-01-18T16:15:25+08:00">2023-01-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <meta name="referrer" content="no-referrer" />
+
+
+
+<ol>
+<li><p>​	<strong>搭建博客后发现上传的图片都是碎的，网上搜索一堆教程之后发现还是失败，最后找到一篇文章发现问题所在，也就是在存档页和主页不能使用和文章内容中的常规语法来引用图片</strong></p>
+<span id="more"></span>
+
+<p>​	比如说：当你打开文章资源文件夹功能后，你把一个 example.jpg 图片放在了你的资源文件夹中，如果通过使用相对路径的常规 markdown 语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](/example.jpg) </span><br></pre></td></tr></table></figure>
+
+<p>，它将 不会 出现在首页上。（但是它会在文章中按你期待的方式工作)</p>
+<p>​	正确的引用图片方式是使用下列的标签插件而不是 markdown ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img example.jpg This is an example image %&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202301181605178.png" alt="image-20230118160554141"></p>
+<h6 id="我在第一篇博文使用的上传图片的方法"><a href="#我在第一篇博文使用的上传图片的方法" class="headerlink" title="我在第一篇博文使用的上传图片的方法"></a><em><strong>我在第一篇博文使用的上传图片的方法</strong></em></h6><ol start="2">
+<li><p>​	<strong>在使用上面的方法上传了一篇博文后，发现这样虽然图片能显示了但是非常的麻烦</strong></p>
+<p>​	于是我在网上看到了利用图床上传图片的方法，根据网上教程我使用Typora+PicGo+腾讯云COS实现图片上传功能，并且对typora进行相关设置后将图片复制进typora时将会自动上传到图床并替换链接，这样一来想上传图片到博客就十分方便了。</p>
+</li>
+</ol>
+<p>​		不过在文章开头需要添加<img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202301181601875.png" alt="image-20230118160044172">不然图片依然是碎的</p>
+<h2 id="原理解析："><a href="#原理解析：" class="headerlink" title="原理解析："></a>原理解析：</h2><ol>
+<li>HTML的 标签提供了 HTML 文档的元数据。元数据不会显示在客户端，但是会被浏览器解析。这也是为什么加在mardown文章里不会看到这段代码的原因。</li>
+<li>HTML 的 name 属性规定了元数据的名称，这里我们用到的是referer属性，这个属性的作用是让服务器判断来源页面，即用户是从哪来的，很多时候referer被当做防盗链来使用，服务器根据你的访问来源判断是否应该让你下载这个资源，如果你的来源不和规范，比如是个恶意爬虫，那么就会产生403错误。</li>
+<li>到这里，<code>content=&quot;no-referrer&quot;</code>的意义就呼之欲出了，既然我们想拿到这个资源但被服务器认出来之后又被拒绝了，那么伪装一下，不告诉服务器不就行了？所以，这里content的no-referer就是表示不发送引用数据，隐藏自己的来源信息。这样，图片就能正常显示了。</li>
+</ol>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xjm850552586/article/details/84101345?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-84101345-blog-57415705.pc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-84101345-blog-57415705.pc_relevant_recovery_v2&utm_relevant_index=2">(34条消息) hexo引用本地图片无法显示_Ericam_的博客-CSDN博客_hexo背景图引用本地</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/NicolasLearner/article/details/117825767">Typora+PicGo+腾讯云COS实现图片上传功能_NicolasLearner的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangstar/articles/16688692.html">解决hexo博客不能显示图床图片问题 - yangstar - 博客园 (cnblogs.com)</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/test/" rel="tag"># test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/17/ROISweb1/" rel="prev" title="ROISweb1">
+      <i class="fa fa-chevron-left"></i> ROISweb1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/21/ROISweb2/" rel="next" title="ROISweb2">
+      ROISweb2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%88%91%E5%9C%A8%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">我在第一篇博文使用的上传图片的方法</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">原理解析：</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SB</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

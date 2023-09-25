@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ctzsb.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="warmup_csaw_2016 1首先file一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn做题记录2">
+<meta property="og:url" content="http://ctzsb.top/2023/03/14/pwn%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%952/index.html">
+<meta property="og:site_name" content="Ctz">
+<meta property="og:description" content="warmup_csaw_2016 1首先file一下">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141416410.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141417634.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141417678.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141418529.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141419497.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141419149.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141420810.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141429275.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141430008.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141434701.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141435839.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444620.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141436294.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141437411.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444531.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444799.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141454117.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141457478.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141457743.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141458743.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141458493.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141505336.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141508315.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141513612.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141513769.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141530795.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141530636.png">
+<meta property="og:image" content="http://ctzsb.top/C:/Users/86158/AppData/Roaming/Typora/typora-user-images/image-20230314153052101.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141531816.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141538986.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141539366.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141539213.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141613111.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141614997.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141614622.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141605676.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141658091.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141659093.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141717045.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142000334.png">
+<meta property="article:published_time" content="2023-03-14T06:14:50.000Z">
+<meta property="article:modified_time" content="2023-03-27T03:05:44.321Z">
+<meta property="article:author" content="SB">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141416410.png">
+
+<link rel="canonical" href="http://ctzsb.top/2023/03/14/pwn%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%952/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>pwn做题记录2 | Ctz</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ctz</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://ctzsb.top/2023/03/14/pwn%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%952/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SB">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ctz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pwn做题记录2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-03-14 14:14:50" itemprop="dateCreated datePublished" datetime="2023-03-14T14:14:50+08:00">2023-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-27 11:05:44" itemprop="dateModified" datetime="2023-03-27T11:05:44+08:00">2023-03-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="warmup-csaw-2016-1"><a href="#warmup-csaw-2016-1" class="headerlink" title="warmup_csaw_2016 1"></a>warmup_csaw_2016 1</h2><p>首先file一下</p>
+<span id="more"></span>
+
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141416410.png" alt="image-20230314141548068"></p>
+<p>64位elf</p>
+<p>放进ida64里看看</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141417634.png" alt="image-20230314141706579"></p>
+<p>发现s长度64，其他的没什么特别的，用shift+f12看一下字符串</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141417678.png" alt="image-20230314141749645"></p>
+<p>发现cat flag.txt在ida里开启鲜血追猎，虽然没有 &#x2F;bin&#x2F;sh，可以获得权限。但是这个足够我们拿到flag了。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141418529.png" alt="image-20230314141824495"></p>
+<p>发现在sub_40060D这个函数里面。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141419497.png" alt="image-20230314141904461"></p>
+<p>点击查看函数所在位置，发现<strong>0x400611</strong>是压参数的地方。我们可以将其作为返回地址。</p>
+<p>exp：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141419149.png" alt="image-20230314141952116"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141420810.png" alt="image-20230314142005777"></p>
+<p>获得flag{27a3edaf-17ad-46df-a04c-38efd14e27ca}</p>
+<h2 id="ciscn-2019-n-1-1"><a href="#ciscn-2019-n-1-1" class="headerlink" title="ciscn_2019_n_1 1"></a>ciscn_2019_n_1 1</h2><p>checksec 64位elf</p>
+<p>拖到IDA内看看</p>
+<p>main函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141429275.png" alt="image-20230314142945237"></p>
+<p>看到有个fun函数</p>
+<p>fun函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141430008.png" alt="image-20230314143011972"></p>
+<p>v1长度为44，v2等于11.28125就能获得flag</p>
+<p>解题思路：这道题的意思是输入字符串v1，判断v2。考虑输入长字符串覆盖到存储v2的内存空间，把v2的值改掉。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141434701.png" alt="image-20230314143446666"></p>
+<p>rbp-0x30是开始存储v1的地址</p>
+<p>rbp-0x4是开始存储v2的地址</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141435839.png" alt="在这里插入图片描述"></p>
+<p>因此，覆盖0x30-0x4&#x3D;0x2C个字节给v1，另外4个字节给v2</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444620.png" alt="image-20230314144418580">由于v2数值在内存中以十六进制存储，所以，找到11.28125的16进制值。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141436294.png" alt="在这里插入图片描述"></p>
+<p>存在两个比较指令，双击进去。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141437411.png" alt="image-20230314143735380"></p>
+<p>0x41348000就是16进制的11.28125。</p>
+<p>exp：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444531.png" alt="image-20230314144406497"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141444799.png" alt="image-20230314144448762"></p>
+<p>获得flag{54c4ba71-d75a-4e45-bcfb-17cb3d7eb4f8}</p>
+<h2 id="pwn1-sctf-2016"><a href="#pwn1-sctf-2016" class="headerlink" title="pwn1_sctf_2016"></a>pwn1_sctf_2016</h2><p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141454117.png" alt="image-20230314145432083"></p>
+<p>拖进ida32看看</p>
+<p>main函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141457478.png" alt="image-20230314145706445"></p>
+<p>vuln函数：<img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141457743.png" alt="image-20230314145725698"></p>
+<p>shift+f12查找flag字符串</p>
+<p>双击并ctrl+x查看哪个函数使用了这个字符串</p>
+<p>发现get_flag函数</p>
+<p>get_flag函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141458743.png" alt="image-20230314145816709"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141458493.png" alt="image-20230314145831457"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141505336.png" alt="在这里插入图片描述"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141508315.png" alt="image-20230314150814279"></p>
+<p>fgets是输入点，但它只读入32长度的数据，不足以造成溢出，所以我们得利用replace函数将I替换为you，这样输入20个I就会变成20个you，有60个字节，足以覆盖char s了，再覆盖32位程序的4位ebp，最后覆盖返回地址为get_flag的地址</p>
+<p>exp：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141513612.png" alt="image-20230314151303577"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141513769.png" alt="image-20230314151317734"></p>
+<p>获得flag{b89abe65-ca93-4e10-a687-ac7b472a2f14}</p>
+<h2 id="jarvisoj-level0"><a href="#jarvisoj-level0" class="headerlink" title="jarvisoj_level0"></a>jarvisoj_level0</h2><p>main函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141530795.png" alt="image-20230314153001763"></p>
+<p>vulnerable_function函数：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141530636.png" alt="image-20230314153009601"></p>
+<p>shift+f12看看</p>
+<p><img src="/C:/Users/86158/AppData/Roaming/Typora/typora-user-images/image-20230314153052101.png" alt="image-20230314153052101"></p>
+<p>发现&#x2F;bin&#x2F;sh很可疑，开始鲜血追猎，双击加ctrl+x发现敌人</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141531816.png" alt="image-20230314153155777"></p>
+<p>400596记住这个地址，覆盖buf[128]，再覆盖8位rbp，再覆盖返回地址为400596，OK了家人们</p>
+<p>exp：</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141538986.png" alt="image-20230314153843941"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141539366.png" alt="image-20230314153905330"></p>
+<p>cat flag.txt</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141539213.png" alt="image-20230314153926181"></p>
+<p>获得flag{91e5e6d0-3df8-490d-8330-40d213d14673}</p>
+<h2 id="第五空间2019-决赛-PWN5-1"><a href="#第五空间2019-决赛-PWN5-1" class="headerlink" title="[第五空间2019 决赛]PWN5 1"></a>[第五空间2019 决赛]PWN5 1</h2><p>checksec检查</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141613111.png" alt="image-20230314161328070"></p>
+<p>开启了canary保护和NX保护</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141614997.png" alt="在这里插入图片描述"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141614622.png" alt="在这里插入图片描述"></p>
+<p>拖进ida里看看</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141605676.png" alt="image-20230314160536626"></p>
+<p>atoi函数：C 库函数 <strong>int atoi(const char *str)</strong> 把参数 <strong>str</strong> 所指向的字符串转换为一个整数（类型为 int 型）</p>
+<p>printf(buf)这就是一个明显的格式化字符漏洞，再结合题目分析一波，大概流程是随机生成一个数字存入到地址为dword_804C044的全局变量中，最后对输入的passwd字符进行比较，这里注意下atoi这个函数它只会提取正整数，除此之外都是返回0，因为dword变量是随机数，所以控制不了（之前见过一题也是随机数，但是它的随机种子在栈里面是可控的，然后用栈溢出，再引用ctypes库，加载libc.so.6然后就可以获得系统一样的随机数了），但是这题很明显就是通过printf(buf)这个漏洞去更改dword变量的值</p>
+<p>几个核心点：</p>
+<p><code>\1. %2$s 以字符串格式输出参数二 \2. %n ，如 printf(&quot;abcdefg%n&quot;); ,%n前面写了7个字符，所以向ESP（栈顶指针）所指向的地址处所指向的地址处（ESP指向了栈顶，此处存储着一个地址）写入7。 \3. %10$n ，与 %n 类似，不过是向[ESP + 10]处指向的内存处写入7。%n：将%n 之前 printf 已经打印的字符个数赋值给偏移处指针所指向的地址位置</code></p>
+<p>利用思路<br>1.利用 “AAAA %08x %08x %08x %08x %08x %08x %08x………… “,这样的字符串来找到我们输入的参数在函数栈上的位置，我看别的师傅叫首地址偏移或者偏移量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在格式化字符串中，%08x 是一个转换说明符，用于将一个整数格式化为8位十六进制数字。</span><br><span class="line"></span><br><span class="line">具体来说，其中的 %x 表示要将整数转换为十六进制形式，而其中的 08 指定了输出的最小宽度。如果转换后的结果不足 8 位，则会在左侧填充零，以达到指定的宽度。</span><br><span class="line"></span><br><span class="line">例如，假设有一个整数值为 42，使用 &quot;%08x&quot; 格式化字符串进行格式化，那么输出的结果就是 &quot;0000002a&quot;，其中前面填充了 6 个零以满足最小宽度的要求。</span><br></pre></td></tr></table></figure>
+
+<p>2.假设是在栈上第n位，那么可以利用 %n$ 定位到参数在栈上的位置</p>
+<p>3.利用%n来修改参数里的内容，我们不知道读入的随机数是多少，那么我们将它改成我们写入的数据不就好了</p>
+<p>首先我们要定位到我们输入的字符串在栈上的位置。</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141658091.png" alt="image-20230314165809040"></p>
+<p>数一下41414141是在栈上的第10个，后面可以直接利用%10$定位到这个位置</p>
+<p>随机生成函数的位置是0x804c044开始的，长度为4字节,依次+1即可。<br><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141659093.png" alt="在这里插入图片描述"></p>
+<p>所以可以用<code>%10$,%11$,%12$,%13$</code>去定位到这4个地址，再用%n修改这这个地址里的内容，因此构造payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">在格式化字符串中，%10$ 是一个转换说明符，用于引用之前参数列表中的第 10 个参数，并按照指定的格式进行输出。</span><br><span class="line"></span><br><span class="line">具体来说，其中的 10 表示要引用之前参数列表中的第 10 个参数，而 $ 符号用于分隔转换说明符和参数序号。这种使用方式可以方便地对之前的参数进行重复使用或重新排序。</span><br><span class="line"></span><br><span class="line">例如，假设有以下函数调用：</span><br><span class="line"></span><br><span class="line">printf(&quot;%d %f %s %d %d %c %d %s %s %s&quot;, 42, 3.14, &quot;hello&quot;, 1, 2, &#x27;a&#x27;, 3, &quot;world&quot;, &quot;foo&quot;, &quot;bar&quot;);</span><br><span class="line">那么，在格式化字符串中使用 &quot;%4$d&quot; 将引用第 4 个参数值 1，输出结果为 &quot;1&quot;。</span><br><span class="line"></span><br><span class="line">类似地，使用 &quot;%8$s&quot; 将引用第 8 个参数值 &quot;world&quot;，输出结果为 &quot;world&quot;。</span><br></pre></td></tr></table></figure>
+
+<p>exp:<img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303141717045.png" alt="image-20230314171707994"></p>
+<p>或者</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142000334.png" alt="image-20230314195939322"></p>
+<p>获得flag{49fa3da8-ac7a-4c7d-9d59-f6bf7ee08e35}</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1543077-1-1.html">Pwn格式化字符漏洞详细分析（第五空间2019决赛PWN5） - 『脱壳破解区』 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/14/pwn%E7%9A%84%E5%85%A5%E9%97%A8/" rel="prev" title="pwn的练习1">
+      <i class="fa fa-chevron-left"></i> pwn的练习1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/18/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%956/" rel="next" title="web做题记录6">
+      web做题记录6 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#warmup-csaw-2016-1"><span class="nav-number">1.</span> <span class="nav-text">warmup_csaw_2016 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-n-1-1"><span class="nav-number">2.</span> <span class="nav-text">ciscn_2019_n_1 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn1-sctf-2016"><span class="nav-number">3.</span> <span class="nav-text">pwn1_sctf_2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jarvisoj-level0"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj_level0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B42019-%E5%86%B3%E8%B5%9B-PWN5-1"><span class="nav-number">5.</span> <span class="nav-text">[第五空间2019 决赛]PWN5 1</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SB</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

