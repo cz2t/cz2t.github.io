@@ -317,7 +317,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-16 20:16:26" itemprop="dateModified" datetime="2023-11-16T20:16:26+08:00">2023-11-16</time>
+                <time title="Modified: 2023-11-16 20:18:18" itemprop="dateModified" datetime="2023-11-16T20:18:18+08:00">2023-11-16</time>
               </span>
 
           
@@ -331,84 +331,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="php爆绝对路径方法？"><a href="#php爆绝对路径方法？" class="headerlink" title="php爆绝对路径方法？"></a>php爆绝对路径方法？</h3><!--  more  -->
-
-<p>单引号引起数据库报错<br>访问错误参数或错误路径<br>探针类文件如phpinfo<br>扫描开发未删除的测试文件<br>google hacking<br>phpmyadmin报路径：&#x2F;phpmyadmin&#x2F;libraries&#x2F;lect_lang.lib.php<br>利用漏洞读取配置文件找路径<br>恶意使用网站功能，如本地图片读取功能读取不存在图片，上传点上传不能正常导入的文件</p>
-<h3 id="常用的渗透工具有哪些，最常用的是哪个？"><a href="#常用的渗透工具有哪些，最常用的是哪个？" class="headerlink" title="常用的渗透工具有哪些，最常用的是哪个？"></a>常用的渗透工具有哪些，最常用的是哪个？</h3><blockquote>
-<p>burp、nmap、sqlmap、awvs、蚁剑、冰蝎、dirsearch、御剑等等</p>
-</blockquote>
-<h3 id="xss盲打到内网服务器的利用"><a href="#xss盲打到内网服务器的利用" class="headerlink" title="xss盲打到内网服务器的利用"></a>xss盲打到内网服务器的利用</h3><blockquote>
-<p>钓鱼管理员<br>信息收集</p>
-</blockquote>
-<h3 id="鱼叉式攻击和水坑攻击？"><a href="#鱼叉式攻击和水坑攻击？" class="headerlink" title="鱼叉式攻击和水坑攻击？"></a>鱼叉式攻击和水坑攻击？</h3><blockquote>
-<p>鱼叉攻击：指利用木马程序作为电子邮件的附件，发送到目标电脑上，诱导受害者去打开附件来感染木马<br>水坑攻击：分析攻击目标的上网活动规律，寻找攻击目标经常访问的网站的弱点，将网站攻破并植入恶意程序，等待目标访问</p>
-</blockquote>
-<h3 id="什么是虚拟机逃逸？"><a href="#什么是虚拟机逃逸？" class="headerlink" title="什么是虚拟机逃逸？"></a>什么是虚拟机逃逸？</h3><blockquote>
-<p>利用虚拟机软件或者虚拟机中运行的软件的漏洞进行攻击，以达到攻击或控制虚拟机宿主操作系统的目的</p>
-</blockquote>
-<h3 id="中间人攻击？"><a href="#中间人攻击？" class="headerlink" title="中间人攻击？"></a>中间人攻击？</h3><p>原理：</p>
-<blockquote>
-<p>在同一个局域网中，通过拦截正常的网络通信数据，并进行数据篡改和嗅探</p>
-</blockquote>
-<p>防御：</p>
-<blockquote>
-<p>在主机绑定网关MAC与IP地址为静态<br>在网关绑定主机MAC与IP地址<br>使用ARP防火墙</p>
-</blockquote>
-<h3 id="TCP三次握手过程？"><a href="#TCP三次握手过程？" class="headerlink" title="TCP三次握手过程？"></a>TCP三次握手过程？</h3><p>第一次握手：建立连接时,客户端发送syn包(syn&#x3D;j)到服务器,并进入SYN_SEND状态,等待服务器确认<br>第二次握手：服务器收到syn包,必须确认客户的SYN（ack&#x3D;j+1）,同时自己也发送一个SYN包（syn&#x3D;k）,即SYN+ACK包,此时服务器进入SYN_RECV状态<br>第三次握手：客户端收到服务器的SYN＋ACK包,向服务器发送确认包ACK(ack&#x3D;k+1),此包发送完毕,客户端和服务器进入ESTABLISHED状态,完成三次握手</p>
-<hr>
-<hr>
-<h2 id="如何绕过CDN找到真实IP，请列举五种方法"><a href="#如何绕过CDN找到真实IP，请列举五种方法" class="headerlink" title="如何绕过CDN找到真实IP，请列举五种方法"></a>如何绕过CDN找到真实IP，请列举五种方法</h2><p>（内容分发网络（CDN）是一个互连服务器网络，可加快数据密集型应用程序的网页加载速度。CDN 可以表示内容分发网络或内容分配网络。当用户访问某个网站时，来自该网站服务器的数据必须通过互联网传输到用户的计算机。如果用户距离该服务器较远，则加载大文件（例如视频或网站图像）将需要很长时间。相反，如果网站内容存储在距离用户较近的 CDN 服务器上，就可以更快到达他们的计算机。）</p>
-<p><strong>CDN通常会提供SSL加密，用户与CDN节点之间的通信是加密的，这使得攻击者更难窃取源站的真实IP信息</strong>。</p>
-<p><strong>一、DNS历史解析记录</strong></p>
-<p>查询域名的历史解析记录，可能会找到网站使用CDN前的解析记录，从而获取真实ip，相关查询的网站有：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">iphistory：<span class="attr">https</span>:<span class="comment">//viewdns.info/iphistory/</span></span><br><span class="line"><span class="variable constant_">DNS</span>查询：（<span class="attr">https</span>:<span class="comment">//dnsdb.io/zh-cn/）</span></span><br><span class="line">微步在线：（<span class="attr">https</span>:<span class="comment">//x.threatbook.cn/）</span></span><br><span class="line">域名查询：（<span class="attr">https</span>:<span class="comment">//site.ip138.com/）</span></span><br><span class="line"><span class="variable constant_">DNS</span>历史查询：（<span class="attr">https</span>:<span class="comment">//securitytrails.com/）</span></span><br><span class="line"><span class="title class_">Netcraft</span>：<span class="attr">https</span>:<span class="comment">//sitereport.netcraft.com/?url=github.com</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>二、查找子域名</strong></p>
-<p>很多时候，一些重要的站点会做CDN，而一些子域名站点并没有加入CDN，而且跟主站在同一个C段内，这时候，就可以通过查找子域名来查找网站的真实IP。</p>
-<p>常用的子域名查找方法和工具：</p>
-<p>1、搜索引擎查询：如Google、baidu、Bing等传统搜索引擎，site:baidu.com inurl:baidu.com，搜target.com|公司名字。</p>
-<p>2、一些在线查询工具，如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http</span>:<span class="comment">//tool.chinaz.com/subdomain/</span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//i.links.cn/subdomain/    </span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//subdomain.chaxun.la/</span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//searchdns.netcraft.com/</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//www.virustotal.com/</span></span><br></pre></td></tr></table></figure>
-
-<p>3、 子域名爆破工具</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Layer</span>子域名挖掘机</span><br><span class="line">wydomain：<span class="attr">https</span>:<span class="comment">//github.com/ring04h/wydomain    </span></span><br><span class="line"><span class="attr">subDomainsBrute</span>:<span class="attr">https</span>:<span class="comment">//github.com/lijiejie/</span></span><br><span class="line"><span class="title class_">Sublist3</span><span class="attr">r</span>:<span class="attr">https</span>:<span class="comment">//github.com/aboul3la/Sublist3r</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>三、网站邮件头信息</strong></p>
-<p>比如说，邮箱注册，邮箱找回密码、RSS邮件订阅等功能场景，通过网站给自己发送邮件，从而让目标主动暴露他们的真实的IP，查看邮件头信息，获取到网站的真实IP。</p>
-<p><strong>四、网络空间安全引擎搜索</strong></p>
-<p>通过关键字或网站域名，就可以找出被收录的IP，很多时候获取到的就是网站的真实IP。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">钟馗之眼：<span class="attr">https</span>:<span class="comment">//www.zoomeye.org</span></span><br><span class="line"><span class="title class_">Shodan</span>：<span class="attr">https</span>:<span class="comment">//www.shodan.io</span></span><br><span class="line"><span class="title class_">Fofa</span>：<span class="attr">https</span>:<span class="comment">//fofa.so</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>五、利用</strong><a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/ssl?from_column=20065&from=20065"><strong>SSL证书</strong></a><strong>寻找真实IP</strong></p>
-<p>证书颁发机构(CA)必须将他们发布的每个SSL&#x2F;TLS证书发布到公共日志中，SSL&#x2F;TLS证书通常包含域名、子域名和电子邮件地址。因此SSL&#x2F;TLS证书成为了攻击者的切入点。</p>
-<p>SSL证书搜索引擎：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//censys.io/ipv4?q=github.comCensys 证书搜索：</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>六、国外主机解析域名</strong></p>
-<p>大部分 CDN 厂商因为各种原因只做了国内的线路，而针对国外的线路可能几乎没有，此时我们使用国外的DNS查询，很可能获取到真实IP。</p>
-<p>国外多PING测试工具：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//asm.ca.com/zh_cn/ping.php</span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//host-tracker.com/</span></span><br><span class="line"><span class="attr">http</span>:<span class="comment">//www.webpagetest.org/</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//dnscheck.pingdom.com/</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>七、扫描全网</strong></p>
-<p>通过Zmap、masscan等工具对整个互联网发起扫描，针对扫描结果进行关键字查找，获取网站真实IP。</p>
-<p>1、ZMap号称是最快的互联网扫描工具，能够在45分钟扫遍全网。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//github.com/zmap/zmap</span></span><br></pre></td></tr></table></figure>
-
-<p>2、Masscan号称是最快的互联网端口扫描器，最快可以在六分钟内扫遍互联网。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//github.com/robertdavidgraham/masscan</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>八、配置不当导致绕过</strong></p>
-<p>在配置CDN的时候，需要指定域名、端口等信息，有时候小小的配置细节就容易导致CDN防护被绕过。</p>
-<p>案例1：为了方便用户访问，我们常常将<code>www.test.com</code> 和 <code>test.com</code> 解析到同一个站点，而CDN只配置了<a target="_blank" rel="noopener" href="http://www.test.com,通过访问test.com,就可以绕过/">www.test.com，通过访问test.com，就可以绕过</a> CDN 了。</p>
-<p>案例2：站点同时支持http和https访问，CDN只配置 https协议，那么这时访问http就可以轻易绕过。</p>
-<h2 id="redis未授权访问如何利用，利用的前提条件是？"><a href="#redis未授权访问如何利用，利用的前提条件是？" class="headerlink" title="redis未授权访问如何利用，利用的前提条件是？"></a>redis未授权访问如何利用，利用的前提条件是？</h2><p>Redis 是一个使用ANSI C编写的开源、包含多种数据结构、支持网络、基于内存、可选持久性的键值对存储数据库。在默认情况中，redis的默认端口号是6379。通常会绑定在0.0.0.0：6379，在这种情况中，redis将会彻底的暴露在公网上，若不开启认证的情况下，redis会允许任意用户对数据进行增删改查</p>
-<p>注：影响redis数据库 <strong>条件</strong></p>
-<blockquote>
-<p>1，redis暴露在公网上，默认端口</p>
-<p>2，redis未开启认证</p>
-<p>3，redis以root用户运行</p>
-</blockquote>
-
+          <h3 id="php爆绝对路径方法？"><a href="#php爆绝对路径方法？" class="headerlink" title="php爆绝对路径方法？"></a>php爆绝对路径方法？</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
